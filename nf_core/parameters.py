@@ -48,7 +48,7 @@ class Parameters:
         params = {}
         for p in parameters:
             key = "params.{}".format(p.name)
-            params[key] = p.value if p.value else p.default_value
+            params[key] = str(p.value) if p.value else p.default_value
         return json.dumps(params, indent=indent)
 
 
