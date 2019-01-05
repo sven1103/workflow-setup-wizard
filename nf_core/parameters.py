@@ -29,7 +29,7 @@ class Parameters:
                     .usage(param.get("usage")) \
                     .param_type(param.get("type")) \
                     .choices(param.get("choices")) \
-                    .default(param.get("default")) \
+                    .default(param.get("default_value")) \
                     .pattern(param.get("pattern")) \
                     .arity(param.get("arity")) \
                     .build()
