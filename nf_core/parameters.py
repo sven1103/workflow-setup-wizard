@@ -1,6 +1,7 @@
 import copy
 import json
 
+
 class Parameters:
     """Contains a static factory method
     for :class:`Parameter` object creation.
@@ -45,14 +46,14 @@ class Parameter(object):
         # Make some checks
         
         # Put content
-        self.p_name = param_builder.p_name
-        self.p_label = param_builder.p_label
-        self.p_usage = param_builder.p_usage
-        self.p_type = param_builder.p_type
-        self.p_choices = copy.deepcopy(param_builder.p_choices)
-        self.p_default_value = param_builder.p_default_value
-        self.p_pattern = param_builder.p_pattern
-        self.p_arity = param_builder.p_arity
+        self.name = param_builder.p_name
+        self.label = param_builder.p_label
+        self.usage = param_builder.p_usage
+        self.type = param_builder.p_type
+        self.choices = copy.deepcopy(param_builder.p_choices)
+        self.default_value = param_builder.p_default_value
+        self.pattern = param_builder.p_pattern
+        self.arity = param_builder.p_arity
     
     @staticmethod
     def builder():
@@ -72,29 +73,64 @@ class ParameterBuilder:
         self.p_arity = ""
     
     def name(self, name):
+        """Sets the parameter name.
+
+        Args:
+            name (str): Parameter name.
+        """
         self.p_name = name
         return self
     
     def label(self, label):
+        """Sets the parameter label.
+
+        Args:
+            label (str): Parameter label.
+        """
         self.p_label = label
         return self
     
     def usage(self, usage):
+        """Sets the parameter usage.
+
+        Args:
+            usage (str): Parameter usage description.
+        """
         self.p_usage = usage
         return self
     
     def param_type(self, param_type):
+        """Sets the parameter type.
+
+        Args:
+            param_type (str): Parameter type.
+        """
         self.p_type = param_type
         return self
     
     def default(self, default):
+        """Sets the parameter default value.
+
+        Args:
+            default (str): Parameter default value.
+        """
         self.p_default_value = default
         return self
     
     def patter(self, pattern):
+        """Sets the parameter regex pattern.
+
+        Args:
+            pattern (str): Parameter regex pattern.
+        """
         self.p_pattern = pattern
         return self
     
     def build(self):
+        """Builds parameter object.
+
+        Returns:
+            Parameter: Fresh from the factory.
+        """
         return Parameter(self)
 
