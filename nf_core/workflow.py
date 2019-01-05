@@ -11,3 +11,12 @@ class Workflow(object):
     def __init__(self, name, parameters_json):
         self.name = name
         self.parameters = Parameters.create_from_json(parameters_json)
+    
+    def as_params_json(self):
+        """Converts the Parameter list in a workflow readable parameter
+        JSON file.
+
+        Returns:
+            str: JSON formatted parameters.
+        """
+        return Parameters.as_json(self.parameters)
