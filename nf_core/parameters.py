@@ -38,6 +38,15 @@ class Parameters:
                 raise IOError(e)
         return parameters
 
+        @staticmethod
+        def as_json(parameters):
+            """Converts a list of Parameter objects into JSON.
+
+            Returns:
+                list: JSON formatted parameters.
+            """
+            pass
+
 
 class Parameter(object):
     """Holds information about a workflow parameter.
