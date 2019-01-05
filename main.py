@@ -8,7 +8,11 @@ def run(json_file):
     with open(json_file, "r") as fh:
         content = fh.read()
     workflow = wf.Workflow("example", content)
-    print(workflow.as_params_json())
+    print(workflow.as_params_json(indent=4))
+    # Modify a value
+    workflow.parameters[1].value = 100
+    print("Parameter after modification:")
+    print(workflow.as_params_json(indent=4))
 
 
 if __name__ == "__main__":

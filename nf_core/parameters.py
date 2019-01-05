@@ -39,7 +39,7 @@ class Parameters:
         return parameters
 
     @staticmethod
-    def as_json(parameters):
+    def as_json(parameters, indent=0):
         """Converts a list of Parameter objects into JSON.
 
         Returns:
@@ -49,7 +49,7 @@ class Parameters:
         for p in parameters:
             key = "params.{}".format(p.name)
             params[key] = p.value if p.value else p.default_value
-        return json.dumps(params)
+        return json.dumps(params, indent=indent)
 
 
 
