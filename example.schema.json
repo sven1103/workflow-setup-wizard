@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://github.com/sven1103/workflow-setup-wizard",
+    "$id": "https://raw.githubusercontent.com/sven1103/workflow-setup-wizard/master/example.schema.json",
     "title": "Workflow Parameter Schema",
     "description": "Describes Nextflow workflow run parameters.",
     "type": "object",
