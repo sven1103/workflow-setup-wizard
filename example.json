@@ -6,7 +6,7 @@
             "usage": "Needs to be provided as workflow input data.",
             "type": "string",
             "render": "file",
-            "default": "path/to/reads.fastq.gz",
+            "default_value": "path/to/reads.fastq.gz",
             "pattern": ".*(\\.fastq$|\\.fastq\\.gz$)"
         },
         {
@@ -15,8 +15,8 @@
             "usage": "Integer value that will be applied against input reads.",
             "type": "integer",
             "render": "range",
-            "choices": [1, 150],
-            "default": 1
+            "choices": ["1", "150"],
+            "default_value": "1"
         }
     ]
 }
