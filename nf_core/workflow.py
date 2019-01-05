@@ -1,4 +1,5 @@
-
+from parameters import Parameters
+from parameters import Parameter
 
 class Workflow(object):
     """nf-core workflow object that holds run parameter information.
@@ -9,4 +10,4 @@ class Workflow(object):
     """
     def __init__(self, name, parameters_json):
         self.name = name
-        self.parameters = parameters.create_from_json(parameters_json)
+        self.parameters = Parameters.create_from_json(parameters_json)
