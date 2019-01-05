@@ -20,32 +20,37 @@ class Parameters:
         Raises:
             IOError, if the JSON is of unknown schema to this parser.
         """
-        properties = json.load(parameters_json)
+        properties = json.loads(parameters_json)
         parameters = []
         try:
             for param in properties.get("parameters"):
-                parameter = Parameter.builder().name(param.get("name"))
-                                .label(param.get("label"))
-                                .usage(param.get("usage"))
-                                .type(param.get("type"))
-                                .choices(param.get("choices"))
-                                .default(param.get("default"))
-                                .pattern(param.get("pattern"))
-                                .arity(param.get("arity"))
-                                .build()
+                parameter = Parameter.builder().name(param.get("name")) \
+                    .label(param.get("label")) \
+                    .usage(param.get("usage")) \
+                    .param_type(param.get("type")) \
+                    .choices(param.get("choices")) \
+                    .default(param.get("default")) \
+                    .pattern(param.get("pattern")) \
+                    .arity(param.get("arity")) \
+                    .build()
                 parameters.append(parameter)
-            except Exception as e: 
-                raise IOError(e)
+        except Exception as e: 
+            raise IOError(e)
         return parameters
 
-        @staticmethod
-        def as_json(parameters):
-            """Converts a list of Parameter objects into JSON.
+    @staticmethod
+    def as_json(parameters):
+        """Converts a list of Parameter objects into JSON.
 
-            Returns:
-                list: JSON formatted parameters.
-            """
-            pass
+        Returns:
+            list: JSON formatted parameters.
+        """
+        params = {}
+        for p in parameters:
+            key = "params.{}".format(p.name)
+            params[key] = p.value if p.value else p.default_value
+        return json.dumps(params)
+
 
 
 class Parameter(object):
@@ -59,6 +64,7 @@ class Parameter(object):
         self.label = param_builder.p_label
         self.usage = param_builder.p_usage
         self.type = param_builder.p_type
+        self.value = param_builder.p_value
         self.choices = copy.deepcopy(param_builder.p_choices)
         self.default_value = param_builder.p_default_value
         self.pattern = param_builder.p_pattern
@@ -76,6 +82,7 @@ class ParameterBuilder:
         self.p_label = ""
         self.p_usage = ""
         self.p_type = ""
+        self.p_value = ""
         self.p_choices = []
         self.p_default_value = ""
         self.p_pattern = ""
@@ -108,6 +115,24 @@ class ParameterBuilder:
         self.p_usage = usage
         return self
     
+    def value(self, value):
+        """Sets the parameter value.
+
+        Args:
+            value (str): Parameter value.
+        """
+        self.p_value = value
+        return self
+    
+    def choices(self, choices):
+        """Sets the parameter value choices.
+
+        Args:
+            choices (list): Parameter value choices.
+        """
+        self.p_choices = choices
+        return self
+    
     def param_type(self, param_type):
         """Sets the parameter type.
 
@@ -126,13 +151,22 @@ class ParameterBuilder:
         self.p_default_value = default
         return self
     
-    def patter(self, pattern):
+    def pattern(self, pattern):
         """Sets the parameter regex pattern.
 
         Args:
             pattern (str): Parameter regex pattern.
         """
         self.p_pattern = pattern
+        return self
+    
+    def arity(self, arity):
+        """Sets the parameter regex pattern.
+
+        Args:
+            pattern (str): Parameter regex pattern.
+        """
+        self.p_arity = arity
         return self
     
     def build(self):
